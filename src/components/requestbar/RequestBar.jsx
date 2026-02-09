@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const RequestBar = ({ onSend }) => {
-  const [url, setUrl] = useState("");
+const RequestBar = ({ url, setUrl, onSend,method } ) => {
+ 
 
   useEffect(() => {
     setUrl("http://localhost:8080/api/health");
@@ -17,21 +17,19 @@ const RequestBar = ({ onSend }) => {
 
       <select
         className="form-select form-select-sm me-2 text-success fw-semibold"
-        style={{ maxWidth: "90px", backgroundColor: "#e8f5ee" }}
+        style={{ maxWidth: "90px", backgroundColor: method=="GET"? "#e8f5ee" :  "#fff3cd"  }}
         disabled
       >
-        <option>GET</option>
+        <option>{method}</option>
       </select>
 
-      {/* URL Input */}
+    
       <input
         type="text"
         className="form-control form-control-sm me-2"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       />
-
-      {/* Send Button */}
       <button
         className="btn btn-primary btn-sm px-4"
         onClick={handleSend}
