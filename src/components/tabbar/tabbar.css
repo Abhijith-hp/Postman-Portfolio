@@ -1,0 +1,21 @@
+.postman-tabs {
+  margin-top: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.postman-tabs .nav-link {
+  color: #555;
+  border: none;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+.postman-tabs .nav-link.active {
+  color: #f26b3a; /* Postman orange */
+  border-bottom: 2px solid #f26b3a;
+  background-color: transparent;
+}
+
+.postman-tabs .nav-link:hover {
+  color: #f26b3a;
+}
