@@ -2,13 +2,9 @@
 import "./tabbar.css"
 const TabsBar = ({activeTab,setActiveTab}) => {
 const tabs = [
-    "Docs",
-    "Params",
     "Authorization",
     "Headers",
-    "Body",
-    "Scripts",
-    "Settings"
+    "Body"
   ];
   return (
     <ul className="nav nav-tabs postman-tabs justify-content-center">

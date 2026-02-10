@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 const RequestBar = ({ url, setUrl, onSend,method } ) => {
  
-
+  const {accessToken} = useContext(AuthContext)
   useEffect(() => {
     setUrl("http://localhost:8080/api/health");
   }, []);
 
   const handleSend = () => {
+    console.log("Access token",accessToken)
     onSend(url);
   };
+
+ 
 
   return (
     <div className="d-flex align-items-center border rounded p-2 bg-white shadow-sm">
