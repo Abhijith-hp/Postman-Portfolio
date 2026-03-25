@@ -1,0 +1,41 @@
+.response-tabs {
+  display: flex;
+  align-items: center;
+  background: var(--pm-bg-secondary);
+  border-bottom: 1px solid var(--pm-border);
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.response-tab {
+  position: relative;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.response-tab:hover {
+  color: var(--pm-text-primary);
+}
+
+.response-tab.active {
+  color: var(--pm-accent);
+}
+
+.response-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: var(--pm-accent);
+  border-radius: 2px 2px 0 0;
+}

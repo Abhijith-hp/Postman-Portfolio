@@ -1,45 +1,183 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ========== MAIN LAYOUT ========== */
+.app-container {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--pm-bg-primary);
+}
+
+/* ========== TOP HEADER BAR ========== */
+.app-header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  background: var(--pm-bg-secondary);
+  border-bottom: 1px solid var(--pm-border);
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.app-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pm-accent);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+}
+
+.app-header .logo-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--pm-accent);
+  border-radius: 6px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
 }
 
-.App-link {
-  color: #61dafb;
+.app-header .header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.body-panel {
-  border: 1px solid #ddd;
-  min-height: 200px;
-  background: #fafafa;
-  padding: 20px;
+.header-btn {
+  background: transparent;
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-secondary);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header-btn:hover {
+  background: var(--pm-bg-hover);
+  color: var(--pm-text-primary);
+  border-color: var(--pm-border-light);
+}
+
+.header-btn.primary {
+  background: var(--pm-accent);
+  border-color: var(--pm-accent);
+  color: #fff;
+}
+
+.header-btn.primary:hover {
+  background: var(--pm-accent-hover);
+}
+
+/* ========== MAIN BODY (sidebar + content) ========== */
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ========== CONTENT AREA ========== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  background: var(--pm-bg-primary);
+}
+
+/* ========== RESIZABLE DIVIDERS ========== */
+.resize-handle-vertical {
+  width: 4px;
+  cursor: col-resize;
+  background: transparent;
+  position: relative;
+  flex-shrink: 0;
+  z-index: 10;
+  transition: background 0.15s;
+}
+
+.resize-handle-vertical::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1px;
+  width: 2px;
+  background: var(--pm-border);
+  transition: background 0.15s;
+}
+
+.resize-handle-vertical:hover::after,
+.resize-handle-vertical.active::after {
+  background: var(--pm-accent);
+  width: 3px;
+  left: 0;
+}
+
+.resize-handle-horizontal {
+  height: 5px;
+  cursor: row-resize;
+  background: transparent;
+  position: relative;
+  flex-shrink: 0;
+  z-index: 10;
+  transition: background 0.15s;
+}
+
+.resize-handle-horizontal::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2px;
+  height: 2px;
+  background: var(--pm-border);
+  transition: background 0.15s;
+}
+
+.resize-handle-horizontal:hover::after,
+.resize-handle-horizontal.active::after {
+  background: var(--pm-accent);
+  height: 3px;
+  top: 1px;
+}
+
+/* ========== REQUEST PANE (upper) ========== */
+.request-pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 120px;
+}
+
+/* ========== RESPONSE PANE (lower) ========== */
+.response-pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100px;
+  background: var(--pm-bg-primary);
+}
+
+/* ========== DRAG OVERLAY ========== */
+.drag-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  cursor: col-resize;
+}
+
+.drag-overlay.horizontal {
+  cursor: row-resize;
 }

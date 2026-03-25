@@ -1,45 +1,76 @@
-import { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-const RequestBar = ({ url, setUrl, onSend,method } ) => {
- 
-  const {accessToken} = useContext(AuthContext)
+import "./requestbar.css";
+
+const methodColorMap = {
+  GET: "var(--pm-get)",
+  POST: "var(--pm-post)",
+  PUT: "var(--pm-put)",
+  DELETE: "var(--pm-delete)",
+  PATCH: "var(--pm-patch)",
+};
+
+const RequestBar = ({ url, setUrl, onSend, method, loading }) => {
+  useContext(AuthContext);
+
   useEffect(() => {
-    setUrl("http://localhost:8080/api/health");
+    if (!url) setUrl("http://localhost:8080/api/health");
   }, []);
 
   const handleSend = () => {
-    console.log("Access token",accessToken)
     onSend(url);
   };
 
- 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSend();
+  };
 
   return (
-    <div className="d-flex align-items-center border rounded p-2 bg-white shadow-sm">
+    <div className="request-bar-container">
+      <div className="request-bar-inner">
+        {/* Method selector */}
+        <div
+          className="method-select"
+          style={{ color: methodColorMap[method] || "var(--pm-get)" }}
+        >
+          <span className="method-label">{method || "GET"}</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
 
-      <select
-        className="form-select form-select-sm me-2 text-success fw-semibold"
-        style={{ maxWidth: "90px", backgroundColor: method=="GET"? "#e8f5ee" :  "#fff3cd"  }}
-        disabled
-      >
-        <option>{method}</option>
-      </select>
+        {/* URL input */}
+        <input
+          type="text"
+          className="url-input"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter request URL"
+          spellCheck={false}
+        />
 
-    
-      <input
-        type="text"
-        className="form-control form-control-sm me-2"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <button
-        className="btn btn-primary btn-sm px-4"
-        onClick={handleSend}
-      >
-        Send
-      </button>
+        {/* Send button */}
+        <button
+          className={`send-btn ${loading ? "loading" : ""}`}
+          onClick={handleSend}
+          disabled={loading}
+        >
+          {loading ? (
+            <span className="spinner" />
+          ) : (
+            "Send"
+          )}
+        </button>
+
+        {/* Save button */}
+        <button className="save-btn" title="Save request">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

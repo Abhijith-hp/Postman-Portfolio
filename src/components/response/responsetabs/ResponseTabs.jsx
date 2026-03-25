@@ -1,14 +1,22 @@
+import { useState } from "react";
+import "./responsetabs.css";
+
 const ResponseTabs = () => {
+  const [activeTab, setActiveTab] = useState("Body");
+  const tabs = ["Body", "Cookies", "Headers", "Test Results"];
+
   return (
-    <ul className="nav nav-tabs">
-      {["Body", "Cookies", "Headers (4)", "Test Results"].map(tab => (
-        <li className="nav-item" key={tab}>
-          <button className={`nav-link ${tab === "Body" ? "active" : ""}`}>
-            {tab}
-          </button>
-        </li>
+    <div className="response-tabs">
+      {tabs.map((tab) => (
+        <button
+          key={tab}
+          className={`response-tab ${activeTab === tab ? "active" : ""}`}
+          onClick={() => setActiveTab(tab)}
+        >
+          {tab}
+        </button>
       ))}
-    </ul>
+    </div>
   );
 };
 
